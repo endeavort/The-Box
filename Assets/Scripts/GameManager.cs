@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -201,6 +202,7 @@ public class GameManager : MonoBehaviour
         {
             DisplayMessage("素手では割れない。");
         } 
+        // 持っているとき
         else
         {
             DisplayMessage("貯金箱が割れて中から鍵が出てきた。");
@@ -208,6 +210,21 @@ public class GameManager : MonoBehaviour
             buttonKey.SetActive(true); // 鍵の絵を表示
             imageKeyIcon.GetComponent<Image>().sprite = keyPicture;
             doesHaveKey = true;
+        }
+    }
+
+    // ボックスをタップ
+    public void PushButtonBox()
+    {
+        // 鍵を持っていないとき
+        if (doesHaveKey == false)
+        {
+            DisplayMessage("鍵がかかっている。");
+        }
+        // 持っているとき
+        else
+        {
+            SceneManager.LoadScene("ClearScene");
         }
     }
 
