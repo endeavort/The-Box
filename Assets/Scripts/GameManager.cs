@@ -63,6 +63,12 @@ public class GameManager : MonoBehaviour
         buttonMessage.SetActive(false); // メッセージを消す
     }
 
+    // トンカチの絵をタップ
+    public void PushButtonHammer()
+    {
+        buttonHammer.SetActive(false); // トンカチの絵を消す
+    }
+
     // メッセージを表示
     void DisplayMessage(string mes)
     {
@@ -152,5 +158,20 @@ public class GameManager : MonoBehaviour
 
         // ボタンの画像を変更
         buttonLamp[buttonNo].GetComponent<Image>().sprite = buttonPicture[buttonColor[buttonNo]];
+
+        // ボタンの色が正解で、ハンマーをまだ持ってないとき
+        if ((buttonColor[0] == COLOR_BLUE) &&
+            (buttonColor[1] == COLOR_WHITE) &&
+            (buttonColor[2] == COLOR_RED))
+        {
+            if (doesHaveHammer == false)
+            {
+                DisplayMessage("金庫の中にトンカチが入っていた。");
+                buttonHammer.SetActive(true); // トンカチの絵を表示
+                imageHammerIcon.GetComponent<Image>().sprite = hammerPicture;
+
+                doesHaveHammer = true;
+            }
+        }
     }
 }
