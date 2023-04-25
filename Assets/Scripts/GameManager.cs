@@ -22,16 +22,25 @@ public class GameManager : MonoBehaviour
     public GameObject buttonMessageText; // メッセージテキスト
 
     public GameObject buttonHammer; // ボタン：トンカチ
+    public GameObject buttonKey; // ボタン：鍵
+    public GameObject buttonPig; // ボタン：ブタの貯金箱
+
     public GameObject imageHammerIcon; // アイコン：トンカチ
+    public GameObject imageKeyIcon; // アイコン：鍵
 
     public GameObject[] buttonLamp = new GameObject[3]; // ボタン：金庫
 
     public Sprite[] buttonPicture = new Sprite[4]; // ボタンの絵
 
     public Sprite hammerPicture; // トンカチの絵
+    public Sprite keyPicture; // 鍵の絵
 
     private int wallNo; // 現在の向いている方向
+
     private bool doesHaveHammer; // トンカチの所有フラグ
+    private bool doesHaveKey; // 鍵の所有フラグ
+
+
     private int[] buttonColor = new int[3]; // 金庫のボタン配列リスト
 
     // Start is called before the first frame update
@@ -39,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         wallNo = WALL_FRONT; // スタート時点は前を向く
         doesHaveHammer = false; // トンカチ未所持
+        doesHaveKey = false; // 鍵未所持
         buttonColor[0] = COLOR_GREEN; // ボタン1「緑」
         buttonColor[1] = COLOR_RED; // ボタン2「赤」
         buttonColor[2] = COLOR_BLUE; // ボタン3「青」
@@ -67,6 +77,12 @@ public class GameManager : MonoBehaviour
     public void PushButtonHammer()
     {
         buttonHammer.SetActive(false); // トンカチの絵を消す
+    }
+
+    // 鍵の絵をタップ
+    public void PushButtonKey()
+    {
+        buttonKey.SetActive(false); // 鍵の絵を消す
     }
 
     // メッセージを表示
@@ -174,4 +190,23 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    // 貯金箱をタップ
+    public void PushButtonPig()
+    {
+        // トンカチを持っていないとき
+        if (doesHaveHammer == false)
+        {
+            DisplayMessage("素手では割れない。");
+        } 
+        else
+        {
+            DisplayMessage("貯金箱が割れて中から鍵が出てきた。");
+            buttonPig.SetActive(false); // 貯金箱を消す
+            buttonKey.SetActive(true); // 鍵の絵を表示
+            imageKeyIcon.GetComponent<Image>().sprite = keyPicture;
+            doesHaveKey = true;
+        }
+    }
+
 }
