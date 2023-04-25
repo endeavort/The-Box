@@ -103,7 +103,8 @@ public class GameManager : MonoBehaviour
             wallNo = WALL_FRONT;
         }
 
-        DisplayWall(); //壁表示更新
+        DisplayWall(); // 壁表示更新
+        ClearButtons(); // 各種表示を消す
     }
 
     // 左ボタン押す
@@ -117,7 +118,8 @@ public class GameManager : MonoBehaviour
             wallNo = WALL_LEFT;
         }
 
-        DisplayWall(); //壁表示更新
+        DisplayWall(); // 壁表示更新
+        ClearButtons(); // 各種表示を消す
     }
 
     // 向いている方向の壁を表示
@@ -207,6 +209,14 @@ public class GameManager : MonoBehaviour
             imageKeyIcon.GetComponent<Image>().sprite = keyPicture;
             doesHaveKey = true;
         }
+    }
+
+    // 各種表示をクリア
+    void ClearButtons()
+    {
+        buttonHammer.SetActive(false);
+        buttonKey.SetActive(false);
+        buttonMessage.SetActive(false);
     }
 
 }
